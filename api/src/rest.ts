@@ -1,16 +1,15 @@
 ﻿import Koa from "koa";
+import BodyParser from "koa-bodyparser";
+import { configRoutes } from "./rest/configs/config-routes";
 
 export function startServer() {
   const app = new Koa();
 
-  app.use(async (ctx) => {
-    ctx.response.body = "Hello World";
-    ctx.response.status = 200;
+  app.use(BodyParser());
 
-    return ctx.response;
-  });
+  configRoutes(app);
 
   app.listen(5001, () => {
-    console.log("REST API running on port 3000");
+    console.log("REST API running on port 5001");
   });
 }

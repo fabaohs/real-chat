@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Separator } from "./ui/separator";
+import { Separator } from "../../../components/ui/separator";
 
 const loginFormSchema = z.object({
   email: z
