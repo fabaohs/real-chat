@@ -5,5 +5,5 @@ export async function request<T>({
   url,
   params,
 }: iRequestParams): Promise<iResponse<T>> {
-  return await fetch(url, params).then((res) => res.json());
+  return await fetch(url, params).then(async (res) => await res.json());
 }

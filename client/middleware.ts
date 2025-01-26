@@ -17,6 +17,8 @@ export function middleware(req: NextRequest) {
   if (!cookie) {
     return redirectToAuth();
   }
+
+  return NextResponse.next();
 }
 
 export const config = {
