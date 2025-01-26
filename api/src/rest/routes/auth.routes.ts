@@ -1,6 +1,6 @@
 ﻿import Router from "@koa/router";
 
-import { login } from "./auth.controller";
+import { login } from "../modules/auth/auth.controller";
 
 export const authRouter = new Router({
   prefix: "/auth",
