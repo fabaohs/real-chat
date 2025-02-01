@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse, type MiddlewareConfig } from "next/server";
 import { cookies } from "next/headers";
 import { redirectToAuth } from "@/lib/middlewatre-utils";
 
@@ -14,13 +14,11 @@ export function middleware(req: NextRequest) {
     return redirectToAuth();
   }
 
-  if (!cookie) {
-    return redirectToAuth();
-  }
-
   return NextResponse.next();
 }
 
-export const config = {
-  matcher: ["/"],
+export const config: MiddlewareConfig = {
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+  ],
 };
