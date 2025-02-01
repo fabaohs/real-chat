@@ -12,6 +12,13 @@ export function startServer() {
   configRoutes(app);
 
   app.use(async (ctx, next) => {
+    ctx.response.status = 404;
+    ctx.response.body = { message: "Recurso não encontrado" };
+
+    await next();
+  });
+
+  app.use(async (ctx, next) => {
     await next();
     ctx.response.headers = {
       "Content-Type": "application/json",
