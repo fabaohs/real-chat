@@ -1,3 +1,1 @@
-﻿export class AuthService {
-  async findByEmail() {}
-}
+﻿async function genJwt() {}

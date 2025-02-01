@@ -1,11 +1,11 @@
 ﻿import { Schema, model } from "mongoose";
-import { hash, compare } from "bcrypt";
+import { hash, compare, genSaltSync } from "bcrypt";
 
 export type User = {
   name: string;
   email: string;
   password: string;
-  imgUrl: string;
+  imgUrl?: string;
 
   hashPwd: (pwd: string) => Promise<string>;
   compare: (pwd: string, hashedPwd: string) => Promise<boolean>;
@@ -41,13 +41,20 @@ const userSchema = new Schema<User>(
 
 userSchema.methods = {
   hashPwd: (password: string) => {
-    return hash(password, String(process.env.salt));
+    const salt = genSaltSync(12);
+    return hash(password, salt);
   },
   compare: (password: string, hashedPassword: string) => {
     return compare(password, hashedPassword);
   },
 };
 
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  this.password = await this.hashPwd(this.password);
+  next();
+});
+
 const userModel = model("User", userSchema);
 
-export { userModel };
+export { userModel as User };
