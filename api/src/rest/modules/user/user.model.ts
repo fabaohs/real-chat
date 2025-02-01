@@ -1,7 +1,8 @@
-﻿import { Schema, model } from "mongoose";
+﻿import { ObjectId, Schema, model } from "mongoose";
 import { hash, compare, genSaltSync } from "bcrypt";
 
 export type User = {
+  _id: ObjectId;
   name: string;
   email: string;
   password: string;
@@ -36,6 +37,12 @@ const userSchema = new Schema<User>(
   {
     collection: "User",
     timestamps: true,
+    toJSON: {
+      transform: (_doc, ret) => {
+        delete ret.password;
+        return ret;
+      },
+    },
   }
 );
 

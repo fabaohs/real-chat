@@ -2,7 +2,7 @@
 import dotenv from "dotenv";
 import path from "path";
 
-dotenv.config({ path: path.resolve(__dirname, "../.env") });
+dotenv.config();
 
 export async function initConnection() {
   const url = process.env.DB_URI;
