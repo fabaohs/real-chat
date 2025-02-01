@@ -15,7 +15,7 @@ const loginFormSchema = z.object({
     .email({ message: "Email inválido" }),
   password: z
     .string({ required_error: "A senha é obrigatória" })
-    .min(6, { message: "A senha deve ter no mínimo 6 caracteres" }),
+    .min(3, { message: "A senha deve ter no mínimo 6 caracteres" }),
 });
 
 type LoginForm = z.infer<typeof loginFormSchema>;
@@ -28,16 +28,13 @@ export function LoginForm() {
   const { control, handleSubmit } = form;
 
   async function onSubmit(data: LoginForm) {
-    console.log("data", data);
-
     const response = await request({
-      url: `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
+      url: `${process.env.NEXT_PUBLIC_API_URL}/auth/signin`,
       params: {
         method: "POST",
+        body: JSON.stringify(data),
       },
     });
-
-    console.log("response", response);
   }
 
   return (
